@@ -34,6 +34,7 @@ before_install:
   - docker pull ${DOCKER_IMAGE}
 
 script:
+  - git merge master
   - docker run ${DOCKER_OPTS} ${DOCKER_IMAGE} ./autogen.sh
   - docker run ${DOCKER_OPTS} ${DOCKER_IMAGE} ./configure ${CONFIGURE_FLAGS} CXXFLAGS="${CXXFLAGS}"
   - docker run ${DOCKER_OPTS} ${DOCKER_IMAGE} ccache --zero-stats
