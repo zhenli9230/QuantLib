@@ -13,30 +13,22 @@ env:
   global:
     - DOCKER_OPTS="--rm -ti -v ${HOME}/.ccache:/root/.ccache -v ${TRAVIS_BUILD_DIR}:/build -w /build"
   matrix:
-    # Regression test with old Boost version, gcc 4.8
-    - DOCKER_IMAGE=lballabio/quantlib-devenv:1.54.0-trusty
-      CONFIGURE_FLAGS="--disable-static"
-      CXXFLAGS="-O2 -Wall -Wno-unknown-pragmas -Werror -std=c++03"
-    # Latest Boost, gcc 5.4, strict C++03 mode
-    - DOCKER_IMAGE=lballabio/quantlib-devenv:xenial
-      CONFIGURE_FLAGS="--disable-static"
-      CXXFLAGS="-O2 -Wall -Wno-unknown-pragmas -Werror -std=c++03"
-    # Latest Boost, gcc 6.3, C++14 mode
-    - DOCKER_IMAGE=lballabio/quantlib-devenv:zesty
-      CONFIGURE_FLAGS="--disable-static"
-      CXXFLAGS="-O2 -Wall -Wno-unknown-pragmas -Wno-deprecated-declarations -Werror -std=c++14"
-    # Latest Boost, gcc 7.2, C++14 mode
-    - DOCKER_IMAGE=lballabio/quantlib-devenv:artful
-      CONFIGURE_FLAGS="--disable-static"
-      CXXFLAGS="-O2 -Wall -Wno-unknown-pragmas -Wno-deprecated-declarations -Werror -std=c++14"
     # Intraday calculations enabled
     - DOCKER_IMAGE=lballabio/quantlib-devenv:xenial
       CONFIGURE_FLAGS="--disable-static --enable-intraday"
-      CXXFLAGS="-O2 -Wall -Wno-unknown-pragmas -Werror -std=c++03"
+      CXXFLAGS="-O2 -Wall -Wno-unknown-pragmas -Werror"
     # Indexed coupons enabled
     - DOCKER_IMAGE=lballabio/quantlib-devenv:xenial
       CONFIGURE_FLAGS="--disable-static --enable-indexed-coupons"
-      CXXFLAGS="-O2 -Wall -Wno-unknown-pragmas -Werror -std=c++03"
+      CXXFLAGS="-O2 -Wall -Wno-unknown-pragmas -Werror"
+    # Negative rates disabled
+    - DOCKER_IMAGE=lballabio/quantlib-devenv:xenial
+      CONFIGURE_FLAGS="--disable-static --disable-negative-rates"
+      CXXFLAGS="-O2 -Wall -Wno-unknown-pragmas -Werror"
+    # Thread-safe observe enabled
+    - DOCKER_IMAGE=lballabio/quantlib-devenv:xenial
+      CONFIGURE_FLAGS="--disable-static --enable-thread-safe-observer-pattern"
+      CXXFLAGS="-O2 -Wall -Wno-unknown-pragmas -Werror"
 
 before_install:
   - docker pull ${DOCKER_IMAGE}
