@@ -34,6 +34,7 @@ before_install:
   - docker pull ${DOCKER_IMAGE}
 
 script:
+  - git fetch origin master:master
   - git merge master
   - docker run ${DOCKER_OPTS} ${DOCKER_IMAGE} ./autogen.sh
   - docker run ${DOCKER_OPTS} ${DOCKER_IMAGE} ./configure ${CONFIGURE_FLAGS} CXXFLAGS="${CXXFLAGS}"
