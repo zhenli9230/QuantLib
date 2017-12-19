@@ -15,18 +15,22 @@ env:
   matrix:
     # Intraday calculations enabled
     - DOCKER_IMAGE=lballabio/quantlib-devenv:xenial
+      CACHEDCC="ccache gcc" CACHEDCXX="ccache g++"
       CONFIGURE_FLAGS="--disable-static --enable-intraday"
       CXXFLAGS="-O2 -Wall -Wno-unknown-pragmas -Werror"
     # Indexed coupons enabled
     - DOCKER_IMAGE=lballabio/quantlib-devenv:xenial
+      CACHEDCC="ccache gcc" CACHEDCXX="ccache g++"
       CONFIGURE_FLAGS="--disable-static --enable-indexed-coupons"
       CXXFLAGS="-O2 -Wall -Wno-unknown-pragmas -Werror"
     # Negative rates disabled
     - DOCKER_IMAGE=lballabio/quantlib-devenv:xenial
+      CACHEDCC="ccache gcc" CACHEDCXX="ccache g++"
       CONFIGURE_FLAGS="--disable-static --disable-negative-rates"
       CXXFLAGS="-O2 -Wall -Wno-unknown-pragmas -Werror"
     # Thread-safe observe enabled
     - DOCKER_IMAGE=lballabio/quantlib-devenv:xenial
+      CACHEDCC="ccache gcc" CACHEDCXX="ccache g++"
       CONFIGURE_FLAGS="--disable-static --enable-thread-safe-observer-pattern"
       CXXFLAGS="-O2 -Wall -Wno-unknown-pragmas -Werror"
 
@@ -37,7 +41,7 @@ before_install:
 
 script:
   - docker run ${DOCKER_OPTS} ${DOCKER_IMAGE} ./autogen.sh
-  - docker run ${DOCKER_OPTS} ${DOCKER_IMAGE} ./configure ${CONFIGURE_FLAGS} CXXFLAGS="${CXXFLAGS}"
+  - docker run ${DOCKER_OPTS} ${DOCKER_IMAGE} ./configure ${CONFIGURE_FLAGS} CC="${CACHEDCC}" CXX="${CACHEDCXX}" CXXFLAGS="${CXXFLAGS}"
   - docker run ${DOCKER_OPTS} ${DOCKER_IMAGE} ccache --zero-stats
   - docker run ${DOCKER_OPTS} ${DOCKER_IMAGE} ccache --max-size=2.5G
   - docker run ${DOCKER_OPTS} ${DOCKER_IMAGE} ccache --show-stats
