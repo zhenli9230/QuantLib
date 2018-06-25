@@ -29,6 +29,7 @@ QL_TESTS = \
 	chooseroption.hpp chooseroption.cpp \
 	cliquetoption.hpp cliquetoption.cpp \
 	cms.hpp cms.cpp \
+	cmsspread.hpp cmsspread.cpp \
 	commodityunitofmeasure.hpp commodityunitofmeasure.cpp \
 	compoundoption.hpp compoundoption.cpp \
 	convertiblebonds.hpp convertiblebonds.cpp \
@@ -54,6 +55,7 @@ QL_TESTS = \
 	fdheston.hpp fdheston.cpp \
 	fdmlinearop.hpp fdmlinearop.cpp \
 	forwardoption.hpp forwardoption.cpp \
+	forwardrateagreement.hpp forwardrateagreement.cpp \
 	functions.hpp functions.cpp \
 	garch.hpp garch.cpp \
 	gaussianquadratures.hpp gaussianquadratures.cpp \
@@ -208,7 +210,6 @@ EXTRA_DIST = \
 	CMakeLists.txt \
 	paralleltestrunner.hpp \
 	README.txt \
-	testsuite_vc9.vcproj \
 	testsuite.vcxproj \
 	testsuite.vcxproj.filters
 
@@ -220,7 +221,6 @@ EXTRA_DIST = \
 	paralleltestrunner.hpp \
 	quantlibbenchmark.cpp \
 	README.txt \
-	testsuite_vc9.vcproj \
 	testsuite.vcxproj \
 	testsuite.vcxproj.filters
 

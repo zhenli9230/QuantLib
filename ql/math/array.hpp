@@ -34,6 +34,7 @@
 #include <boost/scoped_array.hpp>
 #include <boost/type_traits.hpp>
 #include <functional>
+#include <algorithm>
 #include <numeric>
 #include <vector>
 #include <iomanip>
@@ -131,6 +132,7 @@ namespace QuantLib {
         //@}
         //! \name Utilities
         //@{
+        void resize(Size n);
         void swap(Array&);  // never throws
         //@}
 
@@ -461,6 +463,17 @@ namespace QuantLib {
 
     inline Array::reverse_iterator Array::rend() {
         return reverse_iterator(begin());
+    }
+
+    inline void Array::resize(Size n) {
+        if (n > n_) {
+            Array swp(n);
+            std::copy(begin(), end(), swp.begin());
+            swap(swp);
+        }
+        else if (n < n_) {
+            n_ = n;
+        }
     }
 
     inline void Array::swap(Array& from) {
